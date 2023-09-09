@@ -1,13 +1,13 @@
-const express = require('express');
-const logger = require('morgan');
-const cors = require('cors');
-const { ZodError } = require('zod');
-const { fromZodError } = require('zod-validation-error');
+import express, { NextFunction, Request, Response } from 'express';
+import logger from 'morgan';
+import cors from 'cors';
+import { ZodError } from 'zod';
+import { fromZodError } from 'zod-validation-error';
+import { JsonWebTokenError } from 'jsonwebtoken';
 
-const authRoutes = require('./routes/auth');
-const contactsRoutes = require('./routes/contacts');
-const { HttpError } = require('./helpers');
-const { JsonWebTokenError } = require('jsonwebtoken');
+import { HttpError } from '@helpers';
+import authRoutes from './routes/auth';
+import contactsRoutes from './routes/contacts';
 
 const app = express();
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
@@ -26,14 +26,14 @@ app.use((_, res) => {
 });
 
 // error handler
-app.use((err, req, res, next) => {
+app.use((err: Error | HttpError | ZodError, _req: Request, res: Response, _next: NextFunction) => {
   if (err instanceof HttpError) {
     return res.status(err.status).json({ message: err.message });
   }
   if (err instanceof ZodError) {
     return res.status(400).json({
       message: 'missing fields',
-      details: fromZodError(err).message,
+      details: fromZodError(err).message
     });
   }
   if (err instanceof JsonWebTokenError) {
@@ -45,4 +45,4 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Internal Server Error. Try again later!' });
 });
 
-module.exports = app;
+export default app;

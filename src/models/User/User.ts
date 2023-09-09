@@ -1,14 +1,15 @@
-const { Schema, model } = require('mongoose');
+import { Schema, model } from 'mongoose';
+import type { IUser } from '@/types/user.type';
 
-const userSchema = new Schema(
+const userSchema = new Schema<IUser>(
   {
     password: {
       type: String,
-      required: [true, 'Password is required'],
+      required: true,
     },
     email: {
       type: String,
-      required: [true, 'Email is required'],
+      required: true,
       unique: true,
     },
     subscription: {
@@ -30,12 +31,10 @@ const userSchema = new Schema(
     },
     verificationToken: {
       type: String,
-      required: [true, 'Verify token is required'],
+      required: true,
     },
   },
   { versionKey: false, timestamps: true }
 );
 
-const UserModel = model('User', userSchema);
-
-module.exports = { UserModel };
+export const UserModel = model('User', userSchema);

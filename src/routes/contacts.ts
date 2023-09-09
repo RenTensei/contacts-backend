@@ -1,7 +1,7 @@
-const { Router } = require('express');
-const { validIdMiddleware } = require('../middlewares');
-const controller = require('../controllers/contacts');
-const { authMiddleware } = require('../middlewares');
+import { Router } from 'express';
+
+import { authMiddleware, validIdMiddleware } from '@/middlewares';
+import controller from '../controllers/contacts';
 
 const router = Router();
 
@@ -17,4 +17,4 @@ router.patch('/:contactId', authMiddleware, validIdMiddleware, controller.patchB
 
 router.delete('/:contactId', authMiddleware, validIdMiddleware, controller.deleteById);
 
-module.exports = router;
+export default router;

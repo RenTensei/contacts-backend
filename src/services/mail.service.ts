@@ -1,5 +1,5 @@
-const nodemailer = require('nodemailer');
-const { google } = require('googleapis');
+import nodemailer from 'nodemailer';
+import { google } from 'googleapis';
 require('dotenv').config();
 
 const {
@@ -7,26 +7,32 @@ const {
   MAILER_EMAIL,
   MAILER_CLIENT_ID,
   MAILER_CLIENT_SECRET,
-  MAILER_REFRESH_TOKEN,
+  MAILER_REFRESH_TOKEN
 } = process.env;
 
+const getGoogleAccessToken = async (): Promise<string> => {
+  const oauth2Client = new google.auth.OAuth2(
+    MAILER_CLIENT_ID,
+    MAILER_CLIENT_SECRET,
+    'https://developers.google.com/oauthplayground'
+  );
+
+  oauth2Client.setCredentials({ refresh_token: MAILER_REFRESH_TOKEN });
+  const { res } = await oauth2Client.getAccessToken();
+  if (!res) throw new Error('google api died');
+  const accessToken = res.data.access_token;
+  return accessToken;
+};
+
 class MailService {
+  private transporter!: nodemailer.Transporter;
+
   constructor() {
     this.setupTransporter();
   }
 
   async setupTransporter() {
-    const oauth2Client = new google.auth.OAuth2(
-      MAILER_CLIENT_ID,
-      MAILER_CLIENT_SECRET,
-      'https://developers.google.com/oauthplayground'
-    );
-
-    oauth2Client.setCredentials({ refresh_token: MAILER_REFRESH_TOKEN });
-    const { res } = await oauth2Client.getAccessToken();
-    const accessToken = res.data.access_token;
-
-    // console.log(accessToken);
+    const accessToken = await getGoogleAccessToken();
 
     this.transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -36,12 +42,12 @@ class MailService {
         accessToken,
         clientId: MAILER_CLIENT_ID,
         clientSecret: MAILER_CLIENT_SECRET,
-        refreshToken: MAILER_REFRESH_TOKEN,
-      },
+        refreshToken: MAILER_REFRESH_TOKEN
+      }
     });
   }
 
-  async sendMail(sendTo, verificationToken) {
+  async sendMail(sendTo: string, verificationToken: string) {
     return await this.transporter.sendMail({
       from: MAILER_EMAIL,
       to: sendTo,
@@ -54,9 +60,9 @@ class MailService {
             ${BASE_URL_PUBLIC}/users/verify/${verificationToken}
           </a>
         </div>
-      `,
+      `
     });
   }
 }
 
-module.exports = new MailService();
+export default new MailService();

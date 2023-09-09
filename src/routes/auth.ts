@@ -1,6 +1,6 @@
-const { Router } = require('express');
-const controller = require('../controllers/auth');
-const { authMiddleware, uploadMiddleware } = require('../middlewares');
+import { Router } from 'express';
+import controller from '../controllers/auth';
+import { authMiddleware, uploadMiddleware } from '@/middlewares';
 
 const router = Router();
 
@@ -23,4 +23,4 @@ router.patch(
   controller.updateAvatar
 );
 
-module.exports = router;
+export default router;

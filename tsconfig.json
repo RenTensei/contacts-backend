@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2016",
+    "module": "CommonJS",
+    "lib": ["ESNext"],
+    "moduleResolution": "node",
+
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "outDir": "./dist",
+
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@helpers": ["./src/helpers"],
+      "@helpers/*": ["./src/helpers/*"],
+      "@middlewares/*": ["./src/middlewares/*"]
+    }
+  },
+  "include": ["./src"],
+  "exclude": ["node_modules", "dist"]
+}
