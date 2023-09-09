@@ -1,10 +1,11 @@
-export class HttpError {
-  message: string;
+export class HttpError extends Error {
   status: number;
+
   details: Record<string, any>;
 
   constructor(status: number, message: string, details = {}) {
-    this.message = message;
+    super(message);
+
     this.status = status;
     this.details = details;
   }

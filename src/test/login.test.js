@@ -8,7 +8,7 @@ describe('POST /api/users/login', () => {
   it('should return status code 401 Unauthorized', async () => {
     const fakeUserData = {
       email: faker.internet.email(),
-      password: faker.internet.password(),
+      password: faker.internet.password()
     };
     const response = await request(baseURL).post('/api/users/login').send(fakeUserData);
 
@@ -19,7 +19,7 @@ describe('POST /api/users/login', () => {
   it('should return status code 200 and valid response', async () => {
     const validUserData = {
       email: 'nulla.ante@vestibul.co',
-      password: '123',
+      password: '123'
     };
     const response = await request(baseURL).post('/api/users/login').send(validUserData);
 

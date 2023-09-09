@@ -5,15 +5,15 @@ export const ContactDataSchema = z.object({
   name: z.string(),
   email: z.string().email(),
   phone: z.string(),
-  favorite: z.boolean(),
+  favorite: z.boolean()
 });
 
 export const UpdateContactDataSchema = z.object({
   name: z.string(),
   email: z.string().email(),
-  phone: z.string(),
+  phone: z.string()
 });
 
 export const UpdateFavoriteSchema = z.object({
-  favorite: z.boolean(),
+  favorite: z.boolean()
 });

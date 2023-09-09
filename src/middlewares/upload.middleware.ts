@@ -1,5 +1,5 @@
 import multer from 'multer';
-import { constants } from '../helpers';
+import { constants } from '@helpers';
 
 const multerConfig = multer.diskStorage({
   destination: constants.tempStoragePath,

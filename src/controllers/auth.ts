@@ -1,21 +1,20 @@
-import crypto from 'node:crypto'
-import fs from 'node:fs/promises'
+import crypto from 'node:crypto';
+import fs from 'node:fs/promises';
 import path from 'node:path';
-
-
 
 import jwt from 'jsonwebtoken';
 import gravatar from 'gravatar';
 import Jimp from 'jimp';
-import bcrypt from "bcryptjs";
+import bcrypt from 'bcryptjs';
 
-import { constants } from '@helpers';
-import { mailService } from '@/services';
-import { handlerWrapper, HttpError } from '@helpers';
-import { EmailValidationSchema, UserValidationSchema } from '@/models/User/user.schema';
-import { UserModel } from '@/models/User/User';
+import { constants, handlerWrapper, HttpError } from '@helpers';
+import { mailService } from '@services';
+import { UserModel } from '@models/User/User';
 import type { RequestHandler } from 'express';
 import type { AuthRequestHandler } from '@/types/user.type';
+import { EmailValidationSchema, UserValidationSchema } from '@/models/User/user.schema';
+
+const { JWT_SECRET = '' } = process.env;
 
 const register: RequestHandler = async (req, res) => {
   const validatedBody = UserValidationSchema.parse(req.body);
@@ -37,6 +36,7 @@ const register: RequestHandler = async (req, res) => {
   });
 
   const response = await mailService.sendMail(validatedBody.email, verificationToken);
+  // eslint-disable-next-line no-console
   console.log(response.accepted);
 
   res.status(201).json({
@@ -46,7 +46,7 @@ const register: RequestHandler = async (req, res) => {
 };
 
 const verify: RequestHandler = async (req, res) => {
-  const verificationToken = req.params.verificationToken;
+  const { verificationToken } = req.params;
 
   const user = await UserModel.findOneAndUpdate(
     { verificationToken },
@@ -70,7 +70,7 @@ const login: AuthRequestHandler = async (req, res) => {
   const passwordMatches = await bcrypt.compare(validatedBody.password, existingUser.password);
   if (!passwordMatches) throw new HttpError(401, 'Email or password is wrong');
 
-  const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ id: existingUser._id }, JWT_SECRET, {
     expiresIn: '24h'
   });
 
@@ -115,6 +115,7 @@ const resend: RequestHandler = async (req, res) => {
   await user.save();
 
   const response = await mailService.sendMail(user.email, verificationToken);
+  // eslint-disable-next-line no-console
   console.log(response.accepted);
 
   res.json({ message: 'Verification email sent' });

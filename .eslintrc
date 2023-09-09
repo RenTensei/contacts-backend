@@ -8,5 +8,8 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "rules": {}
+  "rules": {
+    "prettier/prettier": "warn",
+    "no-underscore-dangle": "off"
+  }
 }

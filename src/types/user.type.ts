@@ -1,4 +1,4 @@
-import type { Request, RequestHandler } from 'express';
+import type { RequestHandler } from 'express';
 import type { ObjectId } from 'mongodb';
 // import type { Document } from 'mongoose';
 

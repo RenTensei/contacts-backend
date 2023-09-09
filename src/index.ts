@@ -1,6 +1,8 @@
-require('dotenv').config();
+/* eslint-disable no-console */
 import mongoose from 'mongoose';
 import app from './app';
+
+require('dotenv').config();
 
 const { MONGO_CONNECTION_STRING, API_PORT } = process.env;
 

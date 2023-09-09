@@ -4,27 +4,27 @@ const contactSchema = new Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: true
     },
     email: {
       type: String,
-      required: true,
+      required: true
     },
     phone: {
       type: String,
-      required: true,
+      required: true
     },
     favorite: {
       type: Boolean,
-      default: false,
+      default: false
     },
     owner: {
       type: Schema.Types.ObjectId,
-      ref: 'user',
-    },
+      ref: 'user'
+    }
   },
   { versionKey: false, timestamps: true }
 );
 
+// eslint-disable-next-line import/prefer-default-export
 export const Contact = model('Contact', contactSchema);
-export type IContact = typeof Contact;

@@ -6,8 +6,8 @@
     "prod": "cross-env NODE_ENV=production node src/index.js",
     "dev": "nodemon src/index.ts",
     "test": "jest",
-    "lint": "eslint **/*.ts",
-    "lint:fix": "eslint --fix **/*.js",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint --fix **/*.ts",
     "prettier": "prettier 'src/**/*.ts'",
     "prettier:fix": "prettier --write 'src/**/*.ts'"
   },

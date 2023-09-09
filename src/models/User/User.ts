@@ -5,36 +5,37 @@ const userSchema = new Schema<IUser>(
   {
     password: {
       type: String,
-      required: true,
+      required: true
     },
     email: {
       type: String,
       required: true,
-      unique: true,
+      unique: true
     },
     subscription: {
       type: String,
       enum: ['starter', 'pro', 'business'],
-      default: 'starter',
+      default: 'starter'
     },
     token: {
       type: String,
-      default: null,
+      default: null
     },
     avatarURL: {
       type: String,
-      required: true,
+      required: true
     },
     verify: {
       type: Boolean,
-      default: false,
+      default: false
     },
     verificationToken: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   { versionKey: false, timestamps: true }
 );
 
+// eslint-disable-next-line import/prefer-default-export
 export const UserModel = model('User', userSchema);

@@ -26,6 +26,7 @@ app.use((_, res) => {
 });
 
 // error handler
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: Error | HttpError | ZodError, _req: Request, res: Response, _next: NextFunction) => {
   if (err instanceof HttpError) {
     return res.status(err.status).json({ message: err.message });
@@ -40,9 +41,10 @@ app.use((err: Error | HttpError | ZodError, _req: Request, res: Response, _next:
     return res.status(401).json({ message: 'Not authorized' });
   }
 
+  // eslint-disable-next-line no-console
   console.log(err.message);
 
-  res.status(500).json({ message: 'Internal Server Error. Try again later!' });
+  return res.status(500).json({ message: 'Internal Server Error. Try again later!' });
 });
 
 export default app;

@@ -1,7 +1,7 @@
+import { Contact } from '@models/Contact/Contact';
+import { HttpError, handlerWrapper } from '@helpers';
 import { AuthRequestHandler } from '@/types/user.type';
-import { Contact } from '@/models/Contact/Contact';
 import { UpdateContactDataSchema, UpdateFavoriteSchema } from '@/models/Contact/contact.schema';
-import { HttpError, handlerWrapper } from '@/helpers';
 
 const getAll: AuthRequestHandler<
   {},
@@ -23,7 +23,7 @@ const getAll: AuthRequestHandler<
 };
 
 const getById: AuthRequestHandler<{ contactId: string }> = async (req, res) => {
-  const contactId = req.params.contactId;
+  const { contactId } = req.params;
   const contact = await Contact.findById(contactId);
   if (!contact) throw new HttpError(404, 'Not found');
   res.json(contact);
@@ -36,7 +36,7 @@ const post: AuthRequestHandler = async (req, res) => {
 };
 
 const putById: AuthRequestHandler<{ contactId: string }> = async (req, res) => {
-  const contactId = req.params.contactId;
+  const { contactId } = req.params;
   const validatedBody = UpdateContactDataSchema.parse(req.body);
   const updatedContact = await Contact.findByIdAndUpdate(contactId, validatedBody, { new: true });
   if (!updatedContact) throw new HttpError(404, 'Not found');
@@ -44,7 +44,7 @@ const putById: AuthRequestHandler<{ contactId: string }> = async (req, res) => {
 };
 
 const patchById: AuthRequestHandler<{ contactId: string }> = async (req, res) => {
-  const contactId = req.params.contactId;
+  const { contactId } = req.params;
   const validatedBody = UpdateFavoriteSchema.parse(req.body);
   const updatedContact = await Contact.findByIdAndUpdate(contactId, validatedBody, { new: true });
   if (!updatedContact) throw new HttpError(404, 'Not found');
@@ -52,7 +52,7 @@ const patchById: AuthRequestHandler<{ contactId: string }> = async (req, res) =>
 };
 
 const deleteById: AuthRequestHandler<{ contactId: string }> = async (req, res) => {
-  const contactId = req.params.contactId;
+  const { contactId } = req.params;
   const removedContact = await Contact.findByIdAndDelete(contactId);
   if (!removedContact) throw new HttpError(404, 'Not found');
   res.json({ message: 'contact deleted' });

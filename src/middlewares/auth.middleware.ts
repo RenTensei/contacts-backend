@@ -1,10 +1,11 @@
-import { NextFunction, RequestHandler, Response } from 'express';
-
+import type { RequestHandler } from 'express';
 import jwt from 'jsonwebtoken';
-import { handlerWrapper } from '../helpers';
-import { UserModel } from '../models/User/User';
 
-import { IJwtPayLoad } from '@/types/payload.type';
+import { handlerWrapper } from '@helpers';
+import { UserModel } from '@models/User/User';
+import type { IJwtPayLoad } from '@/types/payload.type';
+
+const { JWT_SECRET = '' } = process.env;
 
 const authMiddleware: RequestHandler = async (req, _, next) => {
   const authHeader = req.headers.authorization || '';
@@ -12,7 +13,7 @@ const authMiddleware: RequestHandler = async (req, _, next) => {
   const [bearer, token] = authHeader.split(' ');
   if (bearer !== 'Bearer' || !token) throw new jwt.JsonWebTokenError('Invalid token');
 
-  const { id } = jwt.verify(token, process.env.JWT_SECRET) as IJwtPayLoad;
+  const { id } = jwt.verify(token, JWT_SECRET) as IJwtPayLoad;
 
   const user = await UserModel.findById(id);
   if (!user || user.token !== token) throw new jwt.JsonWebTokenError('Invalid token');

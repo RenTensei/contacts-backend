@@ -19,9 +19,16 @@
       "@/*": ["./src/*"],
       "@helpers": ["./src/helpers"],
       "@helpers/*": ["./src/helpers/*"],
-      "@middlewares/*": ["./src/middlewares/*"]
+      "@services": ["./src/services"],
+      "@services/*": ["./src/services/*"],
+      "@middlewares": ["./src/middlewares"],
+      "@middlewares/*": ["./src/middlewares/*"],
+      "@models/*": ["./src/models/*"]
     }
   },
   "include": ["src", ".eslintrc"],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "dist"],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
 }

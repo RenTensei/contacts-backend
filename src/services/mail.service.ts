@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
 import { google } from 'googleapis';
+
 require('dotenv').config();
 
 const {
@@ -48,7 +49,7 @@ class MailService {
   }
 
   async sendMail(sendTo: string, verificationToken: string) {
-    return await this.transporter.sendMail({
+    return this.transporter.sendMail({
       from: MAILER_EMAIL,
       to: sendTo,
       subject: 'Confirm your email',
