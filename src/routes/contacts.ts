@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-import { authMiddleware, validIdMiddleware } from '@middlewares';
 import controller from '../controllers/contacts';
+import { authMiddleware, validIdMiddleware } from '@middlewares';
 
 const router = Router();
 

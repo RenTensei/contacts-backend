@@ -1,13 +1,15 @@
-import express, { NextFunction, Request, Response } from 'express';
-import logger from 'morgan';
 import cors from 'cors';
+import express from 'express';
+import { JsonWebTokenError } from 'jsonwebtoken';
+import logger from 'morgan';
 import { ZodError } from 'zod';
 import { fromZodError } from 'zod-validation-error';
-import { JsonWebTokenError } from 'jsonwebtoken';
 
-import { HttpError } from '@helpers';
 import authRoutes from './routes/auth';
 import contactsRoutes from './routes/contacts';
+import { HttpError } from '@helpers';
+
+import type { NextFunction, Request, Response } from 'express';
 
 const app = express();
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';

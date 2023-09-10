@@ -1,9 +1,10 @@
-import type { RequestHandler } from 'express';
 import jwt from 'jsonwebtoken';
 
 import { handlerWrapper } from '@helpers';
 import { UserModel } from '@models/User/User';
+
 import type { IJwtPayLoad } from '@/types/payload.type';
+import type { RequestHandler } from 'express';
 
 const { JWT_SECRET = '' } = process.env;
 

@@ -1,5 +1,5 @@
 {
-  "name": "template",
+  "name": "contacts-backend",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -7,7 +7,7 @@
     "dev": "nodemon src/index.ts",
     "test": "jest",
     "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint --fix **/*.ts",
+    "lint:fix": "eslint --fix src/**/*.ts",
     "prettier": "prettier 'src/**/*.ts'",
     "prettier:fix": "prettier --write 'src/**/*.ts'"
   },

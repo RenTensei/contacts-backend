@@ -2,17 +2,18 @@ import crypto from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 import gravatar from 'gravatar';
 import Jimp from 'jimp';
-import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 import { constants, handlerWrapper, HttpError } from '@helpers';
-import { mailService } from '@services';
 import { UserModel } from '@models/User/User';
-import type { RequestHandler } from 'express';
 import { EmailValidationSchema, UserValidationSchema } from '@models/User/user.schema';
+import { mailService } from '@services';
+
 import type { AuthRequestHandler } from '@/types/user.type';
+import type { RequestHandler } from 'express';
 
 const { JWT_SECRET = '' } = process.env;
 

@@ -1,7 +1,8 @@
-import { Contact } from '@models/Contact/Contact';
-import { HttpError, handlerWrapper } from '@helpers';
-import { AuthRequestHandler } from '@/types/user.type';
 import { UpdateContactDataSchema, UpdateFavoriteSchema } from '@/models/Contact/contact.schema';
+import { HttpError, handlerWrapper } from '@helpers';
+import { Contact } from '@models/Contact/Contact';
+
+import type { AuthRequestHandler } from '@/types/user.type';
 
 const getAll: AuthRequestHandler<
   {},
