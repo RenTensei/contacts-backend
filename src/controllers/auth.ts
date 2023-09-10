@@ -11,8 +11,8 @@ import { constants, handlerWrapper, HttpError } from '@helpers';
 import { mailService } from '@services';
 import { UserModel } from '@models/User/User';
 import type { RequestHandler } from 'express';
+import { EmailValidationSchema, UserValidationSchema } from '@models/User/user.schema';
 import type { AuthRequestHandler } from '@/types/user.type';
-import { EmailValidationSchema, UserValidationSchema } from '@/models/User/user.schema';
 
 const { JWT_SECRET = '' } = process.env;
 
