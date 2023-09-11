@@ -14,16 +14,16 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,
 
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
-      "@/*": ["./src/*"],
-      "@helpers": ["./src/helpers"],
-      "@helpers/*": ["./src/helpers/*"],
-      "@services": ["./src/services"],
-      "@services/*": ["./src/services/*"],
-      "@middlewares": ["./src/middlewares"],
-      "@middlewares/*": ["./src/middlewares/*"],
-      "@models/*": ["./src/models/*"]
+      "@/*": ["./*"],
+      "@helpers": ["./helpers/index.ts"],
+      "@helpers/*": ["./helpers/*"],
+      "@services": ["./services/index.ts"],
+      "@services/*": ["./services/*"],
+      "@middlewares": ["./middlewares/index.ts"],
+      "@middlewares/*": ["./middlewares/*"],
+      "@models/*": ["./models/*"]
     }
   },
   "include": ["src", ".eslintrc"],

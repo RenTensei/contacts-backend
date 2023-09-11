@@ -5,6 +5,7 @@ declare namespace NodeJS {
     BASE_URL: string;
     BASE_URL_PUBLIC: string;
     API_PORT: string;
+    PRODUCTION_PORT: string;
     MAILER_EMAIL: string;
     MAILER_CLIENT_ID: string;
     MAILER_CLIENT_SECRET: string;

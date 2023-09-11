@@ -32,7 +32,7 @@ const userSchema = new Schema<IUser>(
     },
     verificationToken: {
       type: String,
-      required: true
+      default: null
     }
   },
   { versionKey: false, timestamps: true }
